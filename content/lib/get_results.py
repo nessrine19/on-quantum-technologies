@@ -1,9 +1,10 @@
-# from qiskit import Aer
-from qiskit_aer import Aer
+from qiskit import transpile
+from qiskit_aer import AerSimulator
 
 def get_results(qc, shots=1000):
 
-    backend = Aer.get_backend('statevector_simulator')
-    result = backend.run(qc.decompose(reps=6), shots=shots).result()   
+    backend = AerSimulator
+    transpiled_circuit = transpile(qc, backend)
+    result = backend.run(transpiled_circuit, shots=shots).result()   
     counts = result.get_counts()   
     return counts
